@@ -1,25 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
-import { DraxProvider, DraxView } from 'react-native-drax';
-import { GameContext, StatusContext } from '../Context';
-import { CheckAnswer, gameLength, red, blue, green, yellow, orange, purple } from '../library/game';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { DraxProvider } from 'react-native-drax';
+import { GameContext } from '../Context';
 import Round from './Round';
-import Circle from './Circle';
+
+const grey = '#eee';
 
 const Rounds = ({ orientation }) => {
-  const [board, setBoard] = React.useState({});
-  const [previousBoard, setPreviousBoard] = React.useState({})
-  const [game, setGame] = React.useContext(GameContext);
-  const [status, setStatus] = React.useContext(StatusContext);
+  const [game] = React.useContext(GameContext);
 
   const renderPreviousRounds = () => {
     if (!game.rounds) return null;
     return game.rounds.map((round, i) => <View style={styles.previousRound} key={`round-${i}`}>
       <Text style={styles.roundNumber}>{`Round #${round.number}`}</Text>
-      <Round board={round.board} roundNumber={i}/>
-      <Text style={styles.bulls}>Bulls: {round.bulls}</Text>
-      <Text style={styles.cows}>Cows: {round.cows}</Text>
-    </View>)
+      <Round board={round.board} roundNumber={i} />
+      <Text style={styles.bulls}>
+        Bulls:&nbsp;
+        {round.bulls}
+      </Text>
+      <Text style={styles.cows}>
+        Cows:&nbsp;
+        {round.cows}
+      </Text>
+    </View>);
   };
 
   if (!game) return <View />;
@@ -30,8 +33,8 @@ const Rounds = ({ orientation }) => {
         { renderPreviousRounds() }
       </ScrollView>
     </DraxProvider>
-  </View>
-}
+  </View>;
+};
 
 const styles = StyleSheet.create({
   portrait: {
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingTop: 5,
     paddingBottom: 5,
-    backgroundColor: '#eee'
+    backgroundColor: grey
   },
   bulls: {
     textAlign: 'center',
@@ -54,6 +57,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '800'
   }
-})
+});
 
 export default Rounds;

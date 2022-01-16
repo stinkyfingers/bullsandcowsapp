@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { GameProvider, StatusProvider } from './Context';
-import Game from './components/Game';
 import Header from './components/Header';
 import About from './components/About';
 import Play from './components/Play';
@@ -13,8 +12,8 @@ export default function App() {
   const [about, setAbout] = React.useState(false);
   const toggleAbout = () => setAbout(!about);
 
-  ScreenOrientation.addOrientationChangeListener(orientation => {
-    setOrientation(orientation.orientationInfo.orientation === 3 || orientation.orientationInfo.orientation === 4 ? 'landscape' : 'portrait');
+  ScreenOrientation.addOrientationChangeListener((ori) => {
+    setOrientation(ori.orientationInfo.orientation === 3 || ori.orientationInfo.orientation === 4 ? 'landscape' : 'portrait');
   });
 
   return (
@@ -23,9 +22,14 @@ export default function App() {
         <GameProvider>
           <Header toggleAbout={toggleAbout} about={about} />
           {
-            about ?
-            <About orientation={orientation} /> :
-            <><Play orientation={orientation} /><Rounds orientation={orientation} /></>
+            about
+              ? <About orientation={orientation} />
+              : (
+                <>
+                  <Play orientation={orientation} />
+                  <Rounds orientation={orientation} />
+                </>
+              )
           }
         </GameProvider>
       </StatusProvider>
@@ -36,7 +40,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

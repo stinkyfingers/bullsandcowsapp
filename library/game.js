@@ -1,4 +1,3 @@
-
 export const red = 'red';
 export const blue = 'blue';
 export const green = 'green';
@@ -32,34 +31,36 @@ export const gameLength = 12;
 export const NewGame = () => {
   return {
     answer: {
-      '1': colors[Math.floor(Math.random() * colors.length)],
-      '2': colors[Math.floor(Math.random() * colors.length)],
-      '3': colors[Math.floor(Math.random() * colors.length)],
-      '4': colors[Math.floor(Math.random() * colors.length)],
+      1: colors[Math.floor(Math.random() * colors.length)],
+      2: colors[Math.floor(Math.random() * colors.length)],
+      3: colors[Math.floor(Math.random() * colors.length)],
+      4: colors[Math.floor(Math.random() * colors.length)],
     }
-  }
+  };
 };
 
 export const CheckAnswer = ({ answer, game }) => {
   const places = ['1', '2', '3', '4'];
   const output = { bulls: 0, cows: 0 };
-  const colors = { game: {}, answer: {}};
-  places.map(place => {
+  const choices = { game: {}, answer: {} };
+  places.forEach((place) => {
     if (answer[place] === game.answer[place]) {
-      output.bulls++
+      output.bulls += 1;
     } else {
-      colors.game[game.answer[place]] ? colors.game[game.answer[place]]++ : colors.game[game.answer[place]] = 1;
-      colors.answer[answer[place]] ? colors.answer[answer[place]]++ : colors.answer[answer[place]] = 1;
+      choices.game[game.answer[place]] = choices.game[game.answer[place]]
+        ? choices.game[game.answer[place]] + 1 : 1;
+      choices.answer[answer[place]] = choices.answer[answer[place]]
+        ? choices.answer[answer[place]] + 1 : 1;
     }
   });
 
-  for (const color in colors.game) {
-    if (!colors.answer[color]) continue;
-    if (colors.answer[color] <= colors.game[color]) {
-      output.cows += colors.answer[color];
+  Object.keys(choices.game).forEach((color) => {
+    if (!choices.answer[color]) return;
+    if (choices.answer[color] <= choices.game[color]) {
+      output.cows += choices.answer[color];
     } else {
-      output.cows += colors.game[color];
+      output.cows += choices.game[color];
     }
-  }
+  });
   return output;
-}
+};

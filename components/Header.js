@@ -1,20 +1,21 @@
 import React from 'react';
 import { Text, View, Button, StyleSheet, Alert } from 'react-native';
 import { GameContext, StatusContext } from '../Context';
-import { NewGame, gameLength, red, green } from '../library/game';
-import About from './About';
+import { NewGame, red, green } from '../library/game';
 import Circle from './Circle';
+
+const black = '#000';
 
 const Header = ({ orientation, toggleAbout, about }) => {
   const [game, setGame] = React.useContext(GameContext);
   const [status, setStatus] = React.useContext(StatusContext);
-  const [answer, setAnswer] = React.useState(false);
+  const [, setAnswer] = React.useState(false);
 
   const renderAnswer = () => {
     const out = [];
-    for (const i in game.answer) {
+    Object.keys(game.answer).forEach(i => {
       out.push(<Circle color={game.answer[i]} key={`answer-${i}`} />);
-    }
+    });
     return out;
   };
 
@@ -24,7 +25,7 @@ const Header = ({ orientation, toggleAbout, about }) => {
         text: 'OK',
         onPress: () => {
           setAnswer(true);
-          setGame(g => ({ ...g, forfeit: true }));
+          setStatus('lost');
         }
       },
       {
@@ -41,7 +42,7 @@ const Header = ({ orientation, toggleAbout, about }) => {
       <View style={styles.answer}>
         {renderAnswer()}
       </View>
-    </View>
+    </View>;
   };
 
   const renderWinner = () => {
@@ -50,28 +51,28 @@ const Header = ({ orientation, toggleAbout, about }) => {
       <View style={styles.answer}>
         {renderAnswer()}
       </View>
-    </View>
+    </View>;
   };
 
   return <View style={styles[orientation]}>
     <Text style={styles.logo}>Bulls & Cows</Text>
     <View style={styles.menu}>
       <Button
-        onPress={() => { setGame(NewGame()); setAnswer(false); setStatus('active') }}
-        title='New Game'
+        onPress={() => { setGame(NewGame()); setAnswer(false); setStatus('active'); }}
+        title="New Game"
       />
       <Button
-        title='Forfeit'
+        title="Forfeit"
         disabled={status !== 'active'}
         onPress={forfeit}
       />
       <Button
-        title={ about ? 'Return' : 'About' }
+        title={about ? 'Return' : 'About'}
         onPress={toggleAbout}
       />
 
     </View>
-    { status === 'won' ?  renderWinner() : null }
+    { status === 'won' ? renderWinner() : null }
     { status === 'lost' ? renderLoser() : null}
   </View>;
 };
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
   },
   answer: {
     flexDirection: 'row',
-    backgroundColor: '#000',
+    backgroundColor: black,
     width: '100%',
     padding: 5
   },
