@@ -6,7 +6,7 @@ import Circle from './Circle';
 
 const black = '#000';
 
-const Header = ({ orientation, toggleAbout, about }) => {
+const Header = ({ orientation, toggleAbout, about, setAbout }) => {
   const [game, setGame] = React.useContext(GameContext);
   const [status, setStatus] = React.useContext(StatusContext);
   const [, setAnswer] = React.useState(false);
@@ -54,11 +54,18 @@ const Header = ({ orientation, toggleAbout, about }) => {
     </View>;
   };
 
+  const handleNewGame = () => {
+    setGame(NewGame());
+    setAnswer(false);
+    setStatus('active');
+    setAbout(false);
+  };
+
   return <View style={styles[orientation]}>
     <Text style={styles.logo}>Bulls & Cows</Text>
     <View style={styles.menu}>
       <Button
-        onPress={() => { setGame(NewGame()); setAnswer(false); setStatus('active'); }}
+        onPress={handleNewGame}
         title="New Game"
       />
       <Button

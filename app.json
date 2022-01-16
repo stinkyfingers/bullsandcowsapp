@@ -1,12 +1,13 @@
 {
   "expo": {
     "name": "bullsandcowsapp",
-    "slug": "bullsandcowsapp",
+    "slug": "bullsandcows",
+    "owner": "airfox",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/BullsAndCows.drawio-1.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/BullsAndCows.drawio-1.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,16 +19,17 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "requireFullScreen": true
+      "requireFullScreen": true,
+      "bundleIdentifier": "com.airfox.bullsandcows"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/BullsAndCows.drawio-1.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.ico"
     }
   }
 }

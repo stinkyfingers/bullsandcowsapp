@@ -20,7 +20,7 @@ export default function App() {
     <View style={[styles.container, styles[orientation]]}>
       <StatusProvider>
         <GameProvider>
-          <Header toggleAbout={toggleAbout} about={about} />
+          <Header toggleAbout={toggleAbout} about={about} setAbout={setAbout} />
           {
             about
               ? <About orientation={orientation} />
