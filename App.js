@@ -21,7 +21,8 @@ export default function App() {
       <StatusProvider>
         <GameProvider>
           <Header toggleAbout={toggleAbout} about={about} setAbout={setAbout} />
-          {
+          <View>
+            {
             about
               ? <About orientation={orientation} />
               : (
@@ -30,7 +31,8 @@ export default function App() {
                   <Rounds orientation={orientation} />
                 </>
               )
-          }
+            }
+          </View>
         </GameProvider>
       </StatusProvider>
     </View>

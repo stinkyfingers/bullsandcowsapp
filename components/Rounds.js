@@ -38,7 +38,7 @@ const Rounds = ({ orientation }) => {
 
 const styles = StyleSheet.create({
   portrait: {
-    flex: 4
+    flex: 2
   },
   landscape: {}, // TODO
   previousRound: {

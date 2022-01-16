@@ -4,6 +4,7 @@ import { DraxProvider, DraxView } from 'react-native-drax';
 import { GameContext, StatusContext } from '../Context';
 import { CheckAnswer, gameLength, red, blue, green, yellow, orange, purple } from '../library/game';
 import Circle from './Circle';
+import Result from './Result';
 
 const Play = ({ orientation }) => {
   const [board, setBoard] = React.useState({});
@@ -83,27 +84,29 @@ const Play = ({ orientation }) => {
   if (!game) return <View />;
 
   return <View style={styles[orientation]}>
-    <DraxProvider>
-      <View style={styles.play}>
-        { renderCurrentRound() }
-      </View>
-      <View style={styles.play}>
-        { renderPicker() }
-      </View>
-      <View style={styles.play}>
-        <Button
-          title="Submit"
-          onPress={handleSubmit}
-          disabled={canSubmit()}
-        />
-      </View>
-    </DraxProvider>
+    {status === 'active'
+      ? <DraxProvider>
+        <View style={styles.play}>
+          { renderCurrentRound() }
+        </View>
+        <View style={styles.play}>
+          { renderPicker() }
+        </View>
+        <View style={styles.play}>
+          <Button
+            title="Submit"
+            onPress={handleSubmit}
+            disabled={canSubmit()}
+          />
+        </View>
+      </DraxProvider>
+      : <Result orientation={orientation} /> }
   </View>;
 };
 
 const styles = StyleSheet.create({
   portrait: {
-    flex: 2,
+    flex: 1,
   },
   landscape: {}, // TODO
   play: {

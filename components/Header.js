@@ -1,23 +1,14 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet, Alert } from 'react-native';
+import { View, Button, StyleSheet, Alert } from 'react-native';
 import { GameContext, StatusContext } from '../Context';
 import { NewGame, red, green } from '../library/game';
-import Circle from './Circle';
 
 const black = '#000';
 
 const Header = ({ orientation, toggleAbout, about, setAbout }) => {
-  const [game, setGame] = React.useContext(GameContext);
+  const [, setGame] = React.useContext(GameContext);
   const [status, setStatus] = React.useContext(StatusContext);
   const [, setAnswer] = React.useState(false);
-
-  const renderAnswer = () => {
-    const out = [];
-    Object.keys(game.answer).forEach(i => {
-      out.push(<Circle color={game.answer[i]} key={`answer-${i}`} />);
-    });
-    return out;
-  };
 
   const forfeit = () => {
     Alert.alert('Forfeit', 'Are you sure?', [
@@ -35,25 +26,6 @@ const Header = ({ orientation, toggleAbout, about, setAbout }) => {
     ]);
   };
 
-  const renderLoser = () => {
-    return <View>
-      <Text style={styles.lose}>Congrats! You Lose!</Text>
-      <Text style={styles.correct}>Correct answer:</Text>
-      <View style={styles.answer}>
-        {renderAnswer()}
-      </View>
-    </View>;
-  };
-
-  const renderWinner = () => {
-    return <View>
-      <Text style={styles.won}>{`You won in ${game.rounds.length} ${game.rounds.length > 1 ? 'moves' : 'move'}!`}</Text>
-      <View style={styles.answer}>
-        {renderAnswer()}
-      </View>
-    </View>;
-  };
-
   const handleNewGame = () => {
     setGame(NewGame());
     setAnswer(false);
@@ -62,7 +34,6 @@ const Header = ({ orientation, toggleAbout, about, setAbout }) => {
   };
 
   return <View style={styles[orientation]}>
-    <Text style={styles.logo}>Bulls & Cows</Text>
     <View style={styles.menu}>
       <Button
         onPress={handleNewGame}
@@ -79,21 +50,13 @@ const Header = ({ orientation, toggleAbout, about, setAbout }) => {
       />
 
     </View>
-    { status === 'won' ? renderWinner() : null }
-    { status === 'lost' ? renderLoser() : null}
   </View>;
 };
 
 const styles = StyleSheet.create({
-  portrait: {
-    height: '15%',
-  },
+  portrait: {},
   landscape: {
     height: '50%'
-  },
-  logo: {
-    fontSize: 40,
-    textAlign: 'center'
   },
   menu: {
     flexDirection: 'row',
