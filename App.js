@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { GameProvider, StatusProvider } from './Context';
 import Header from './components/Header';
@@ -17,25 +18,27 @@ export default function App() {
   });
 
   return (
-    <View style={[styles.container, styles[orientation]]}>
-      <StatusProvider>
-        <GameProvider>
-          <Header toggleAbout={toggleAbout} about={about} setAbout={setAbout} />
-          <View>
-            {
-            about
-              ? <About orientation={orientation} />
-              : (
-                <>
-                  <Play orientation={orientation} />
-                  <Rounds orientation={orientation} />
-                </>
-              )
-            }
-          </View>
-        </GameProvider>
-      </StatusProvider>
-    </View>
+    <GestureHandlerRootView style={{ flex:1 }}>
+      <View style={[styles.container, styles[orientation]]}>
+        <StatusProvider>
+          <GameProvider>
+            <Header toggleAbout={toggleAbout} about={about} setAbout={setAbout} />
+            <View>
+              {
+              about
+                ? <About orientation={orientation} />
+                : (
+                  <>
+                    <Play orientation={orientation} />
+                    <Rounds orientation={orientation} />
+                  </>
+                )
+              }
+            </View>
+          </GameProvider>
+        </StatusProvider>
+      </View>
+    </GestureHandlerRootView>
   );
 }
 

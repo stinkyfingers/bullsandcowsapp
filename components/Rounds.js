@@ -5,6 +5,7 @@ import { GameContext } from '../Context';
 import Round from './Round';
 
 const grey = '#eee';
+const white = '#fff';
 
 const Rounds = ({ orientation }) => {
   const [game] = React.useContext(GameContext);
@@ -38,14 +39,14 @@ const Rounds = ({ orientation }) => {
 
 const styles = StyleSheet.create({
   portrait: {
-    flex: 2
+    flex: 2,
+    paddingBottom: 25
   },
   landscape: {}, // TODO
   previousRound: {
-    marginTop: 5,
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: grey
+    backgroundColor: grey,
+    borderBottomColor: white,
+    borderBottomWidth: 2,
   },
   bulls: {
     textAlign: 'center',
